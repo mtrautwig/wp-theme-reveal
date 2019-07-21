@@ -12,7 +12,7 @@
     <div class="reveal">
         <div class="slides">            
             <?php while ( have_posts() ) : the_post(); ?>
-            <section>
+            <section data-background="<?php echo the_post_thumbnail_url()?>">
                 <h1><?php the_title(); ?></h1>
                 <?php the_content(); ?>
             </section>
