@@ -17,8 +17,7 @@
                 <?php the_content(); ?>
             </section>
             <?php endwhile; ?>
-            <section data-state="reload-state">
-            </section>
+            <section data-state="reload-state"></section>
         </div>
     </div>
     <script>
@@ -31,7 +30,7 @@
             preloadIframes: true,
             progress: false,
             transition: 'fade',
-            autoSlide: 4000,
+            autoSlide: <?php echo 1000 * get_theme_mod('autoslide_time', 5) ?>,
             autoSlideStoppable: false,
             dependencies: [
                 { src: '<?php echo plugins_url( 'reveal.js/lib/js/classList.js', __FILE__ ); ?>', condition: function() { return !document.body.classList; } },
@@ -41,7 +40,11 @@
         });
 
         Reveal.addEventListener('reload-state', function() {
+            <?php if ( get_theme_mod('automatic_reload', TRUE) && !is_preview() && !is_customize_preview() ) : ?>
             window.location.reload();
+            <?php else : ?>
+            Reveal.slide(0, 0, 0);
+            <?php endif ?>
         });
     </script>
     <?php wp_footer(); ?>
