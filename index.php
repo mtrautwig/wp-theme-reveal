@@ -7,12 +7,26 @@
 </head>
 
 <body <?php body_class(); ?>>
-
     <?php wp_body_open(); ?>
     <div class="reveal">
         <div class="slides">            
             <?php while ( have_posts() ) : the_post(); ?>
-            <section data-background="<?php echo the_post_thumbnail_url()?>">
+            <?php 
+                $custom_fields = get_post_custom();
+                if (has_post_thumbnail()) {
+                    $custom_fields['background-image'] = array( get_the_post_thumbnail_url() );
+                }
+
+                $custom_attrs = '';
+                foreach ($custom_fields as $key => $values) {
+                    if (strpos($key, '_') !== 0) {
+                        $custom_attrs .= ' data-' . htmlspecialchars($key) . '="';
+                        $custom_attrs .= htmlspecialchars($values[0]);
+                        $custom_attrs .= '"';
+                    }
+                }
+            ?>
+            <section <?php echo $custom_attrs ?>>
                 <h1><?php the_title(); ?></h1>
                 <?php the_content(); ?>
             </section>
