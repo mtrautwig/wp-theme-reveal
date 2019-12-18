@@ -1,6 +1,8 @@
 <?php
 
 add_theme_support( 'post-thumbnails' );
+add_theme_support( 'align-wide' );
+add_theme_support( 'wp-block-styles' );
 
 add_action( 'wp_enqueue_scripts', function() {
     wp_enqueue_style( 'style', get_stylesheet_uri() );

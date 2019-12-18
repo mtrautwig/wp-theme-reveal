@@ -6,10 +6,13 @@
     <?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> style="background:#000">
     <?php wp_body_open(); ?>
     <div class="reveal">
-        <div class="slides">            
+	<div class="slides">
+            <?php if ( !is_preview() && !is_customize_preview() ) : ?>
+	    <section data-autoslide="10"></section>
+            <?php endif; ?>
             <?php while ( have_posts() ) : the_post(); ?>
             <?php 
                 $custom_fields = get_post_custom();
